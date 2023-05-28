@@ -47,11 +47,11 @@ class HomePage extends StatelessWidget {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const Text('Track'),
-                              const Text('Seen'),
-                              const Text('Test'),
-                              const Text('Dev'),
+                            children: const [
+                              Text('Track'),
+                              Text('Seen'),
+                              Text('Test'),
+                              Text('Dev'),
                             ],
                           ),
                         ],
@@ -59,7 +59,23 @@ class HomePage extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              Container(
+                height: 100,
+                width: double.infinity,
+                margin: const EdgeInsets.all(4),
+                // color: Colors.red,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return buildItem();
+                  },
+                ),
+              ),
+              buildCardTile(iconData: Icons.developer_board),
+              buildCardTile(iconData: Icons.local_attraction),
+              buildCardTile(title: 'Home', subtitle: 'pp')
             ],
           ),
         ),
@@ -106,5 +122,39 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget buildItem() {
+    return SizedBox(
+      height: 80,
+      width: 80,
+      child: Column(
+        children: const [
+          CircleAvatar(
+            maxRadius: 35,
+            minRadius: 25,
+            child: Icon(Icons.currency_bitcoin),
+          ),
+          Text('Wallet')
+        ],
+      ),
+    );
+  }
+
+  Widget buildCardTile(
+      {String title = 'Developer',
+      String subtitle = 'Dev',
+      IconData iconData = Icons.home}) {
+    return Card(
+      shadowColor: Colors.blue,
+      elevation: 0,
+      child: ListTile(
+        leading: CircleAvatar(
+          child: Icon(iconData),
+        ),
+        title: Text(title),
+        subtitle: Text(subtitle),
+      ),
+    );
   }
 }
